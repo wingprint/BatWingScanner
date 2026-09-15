@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Items List{% endblock %}
+
+{% block content %}
+<h1>Animals Gallery</h1>
+<a href="{{ url_for('animals') }}" class="btn btn-primary">Animals</a>
+<a href="{{ url_for('edit_animals', animal_id=animal.id) }}" class="btn btn-primary">Edit</a>
+<a href="{{ url_for('gallery_animals', animal_id=animal.id, machine_name=machine_name) }}" class="btn btn-primary">Reload</a>
+<div class="container mt-4">
+    <div class="row">
+        {{animal.id}}
+        {{animal.foreign_id}}
+        {{animal.name}}
+        {% if species is defined %}
+            {{species.name}}
+        {% endif %}
+    </div>
+    <div class="row">
+        {% for image in images %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="{{ url_for('static', filename=image) }}" class="card-img-top" alt="Image" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#imageModal" onclick="showImage(this.src)">
+                <div class="card-body">
+                    <p class="card-text">{{ image }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- Bootstrap Modal -->
+<div class="modal" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" style="max-width:90%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="imageModalLabel">Full Image</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <img src="" id="fullImage" class="img-fluid">
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

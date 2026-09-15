@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Items List{% endblock %}
+
+{% block content %}
+<h1>Animals List</h1>
+<a class="" href="{{ url_for('animals') }}">List animal</a>
+<div class="list-group mt-3">
+    {% for machine, animal_id in machines %}
+    <a class="list-group-item list-group-item-action" href="{{ url_for('gallery_animals_machine', animal_id=animal_id, machine_name=machine) }}">
+        <span class="aname">{{machine}}</span>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Items List{% endblock %}
+
+{% block content %}
+<h1>Animals List</h1>
+<a href="{{ url_for('edit_animals_last_form') }}" class="btn btn-primary">Go to newest Animal</a>
+<a href="{{ url_for('get_qr') }}" class="btn btn-primary">Scan QR</a>
+<a href="{{ url_for('animals') }}" class="btn btn-primary">Reload</a>
+<div class="list-group mt-3">
+        <a class="list-group-item list-group-item-action" href="javascript:void()" style="background-color:#eee;">
+            <span class="aid">ID</span>
+            <span class="aaid">QR ID</span>
+            <span class="aaid">BAG ID</span>
+            <span class="aspecies">Species</span>
+            <span class="aspecies">Description</span>
+            <span class="atime badge bg-secondary" style="color:#eee;">Recapture</span>
+            <span class="atime badge bg-secondary" style="color:#eee;">Time</span>
+        </a>
+    {% for item in animals|reverse %}
+        <a class="list-group-item list-group-item-action" href="{{ url_for('gallery_animals', animal_id=item.id) }}">
+            <span class="aid">{{ item.id }}</span>
+            <span class="aaid">{{item.qr_id}}</span>
+            <span class="aaid">{{item.name}}</span>
+            <span class="aspecies">{{ item.species.name }}</span>
+            <span class="aspecies">{{ item.description }}</span>
+            <span class="atime badge bg-secondary" style="color:#eee;">{{ item.recapture }}</span>
+            <span class="atime badge bg-secondary" style="color:#eee;">{{ item.created.strftime("%Y-%m-%d %H:%M:%S") }}</span>
+            <form action="{{ url_for('edit_animals', animal_id=item.id) }}" class="editbutton" method="get" >
+                <button type="submit" class="btn btn-sm bg-primary">Edit</button>
+            </form>
+        </a>
+    {% endfor %}
+</div>
+{% endblock %}

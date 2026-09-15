@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Scan QR Code{% endblock %}
+
+{% block content %}
+<h1>Scan QR Code</h1>
+<a href="{{ url_for('edit_animals_last_form') }}" class="btn btn-primary">Go to newest Animal</a>
+<a href="{{ url_for('animals') }}" class="btn btn-primary">Animals</a>
+<div class="form-group">
+	<p id="output">QR Code Data: None</p>
+	<button id="startScan" type="button">Start QR Code Scanner</button>
+	<video id="video" width="300" height="300" style="border: 1px solid black; display: none;"></video>
+	<canvas id="canvas" width="300" height="300" style="display: none;"></canvas>
+</div>
+
+<script>
+    const startScanBtn = document.getElementById('startScan');
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const context = canvas.getContext('2d');
+    const output = document.getElementById('output');
+
+    startScanBtn.addEventListener('click', function () {
+        // Start the camera only after user interaction
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }).then(stream => {
+            video.srcObject = stream;
+            video.setAttribute("playsinline", true); // iOS Safari setting
+            video.style.display = "block"; // Show video
+            video.play();
+            requestAnimationFrame(tick);
+        }).catch(err => {
+            console.error("Camera access error: ", err);
+        });
+    });
+
+    function tick() {
+        if (video.readyState === video.HAVE_ENOUGH_DATA) {
+            canvas.height = video.videoHeight;
+            canvas.width = video.videoWidth;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+            const code = jsQR(imageData.data, imageData.width, imageData.height);
+
+            if (code) {
+                output.textContent = `QR Code Data: ${code.data}`;
+                if (code.data.startsWith('P')) {
+                    window.location.href = "/animals/qr/"+code.data;
+                }
+            }
+        }
+        requestAnimationFrame(tick);
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Batscanner{% endblock %}
+
+{% block content %}
+    <h1 class="mt-5">{{ title }}</h1>
+    <p class="lead"></p>
+<ul>
+    <li style="margin-bottom:20px;">
+        <a href="{{ url_for('edit_animals_last_form') }}" class="btn btn-primary">Go to newest Animal</a>
+    </li>
+    <li style="margin-bottom:20px;">
+    <a href="/species" class="btn btn-primary">Species</a>
+    </li>
+    <li style="margin-bottom:20px;">
+    <a href="/animals" class="btn btn-primary">Animals</a>
+    </li>
+    <li style="margin-bottom:20px;">
+    <a href="{{ url_for('get_qr') }}" class="btn btn-primary">Scan QR</a>
+    </li>
+    <li style="margin-bottom:20px;">
+    <a href="/download" class="btn btn-primary">Download all</a>
+    </li>
+    <li style="margin-bottom:20px;">
+    <a href="/statistics" class="btn btn-primary">Statistics</a>
+    </li>
+    <li style="margin-bottom:20px;">
+        <a href="/location" class="btn btn-primary">Location</a>
+    </li>
+    <li style="margin-bottom:20px;">
+        <a href="/static/lastimage.html" class="btn btn-primary">Last Images</a>
+    </li>
+</ul>
+
+{% endblock %}

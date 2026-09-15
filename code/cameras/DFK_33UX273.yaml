@@ -1,0 +1,6 @@
+cam:
+  image_format: "BGR8"
+  width: 1440
+  height: 1080
+  exposure_time: 0.002  # s
+  gain: 20.0            # dB

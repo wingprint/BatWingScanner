@@ -1,0 +1,8 @@
+.deletebutton {float: right; top:-20px}
+.editbutton {float: right; top:-20px;}
+.item {}
+span.aid {float:left; width:5%;}
+span.aaid {float:left; width:10%; margin-left:10px}
+span.aspecies {float:left; width:20%; margin-left: 20px;}
+span.aname {float:left; width:20%; margin-left: 20px;}
+span.atime {float:right; margin-left: 20px;}

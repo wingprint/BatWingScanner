@@ -1,0 +1,8 @@
+machine:
+  name: 'Test'
+  pi: False
+  port: 5000
+  cti_path: "/usr/lib/aarch64-linux-gnu/gentl/tis/libic4-gentl-u3v.cti" # important! The file needs to stay in the location the driver has installed it in
+camera:
+  preview_frame_rate: 30
+

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Statistics{% endblock %}
+
+{% block content %}
+<script src="{{ url_for('static', filename='js/chart.js') }}"></script>
+
+<h1>Statistics</h1>
+Scanned species: {{num_species}}<br>
+Scanned individuals: {{num_individuals}}
+<canvas id="myChart" height="100"></canvas>
+
+<script>
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {{species_list|tojson}},
+            datasets: [{
+                label: 'Individuals',
+                data: {{count_list|tojson}},
+                
+            }]
+        },
+    });
+</script>
+{% endblock %}
